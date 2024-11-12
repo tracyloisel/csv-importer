@@ -8,13 +8,17 @@ module CSVImporter
     attribute :column_names, Array[String]
 
     def columns
+      max_column = column_names.size
+
       column_names.map do |column_name|
         # ensure column name escapes invisible characters
         column_name = column_name.gsub(/\P{Print}|\p{Cf}/, '')
+        rank = column_definitions.index { |definition| definition.match?(column_name) }
 
         Column.new(
           name: column_name,
-          definition: find_column_definition(column_name)
+          definition: find_column_definition(column_name),
+          rank: rank || max_column
         )
       end
     end
