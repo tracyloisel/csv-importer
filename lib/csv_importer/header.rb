@@ -14,7 +14,8 @@ module CSVImporter
 
         Column.new(
           name: column_name,
-          definition: find_column_definition(column_name)
+          definition: find_column_definition(column_name),
+          rank: column_definitions.index { |definition| definition.match?(column_name) }
         )
       end
     end
