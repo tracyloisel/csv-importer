@@ -13,6 +13,10 @@ module CSVImporter
       column_names.map do |column_name|
         # ensure column name escapes invisible characters
         column_name = column_name.gsub(/\P{Print}|\p{Cf}/, '')
+
+        # the column will be processed not in the order found in the csv
+        # but in the order of the importation code
+        # first column declared, first column processed
         rank = column_definitions.index { |definition| definition.match?(column_name) }
 
         Column.new(
