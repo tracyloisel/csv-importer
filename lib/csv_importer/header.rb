@@ -8,7 +8,7 @@ module CSVImporter
     attribute :column_names, Array[String]
 
     def columns
-      max_column = column_names.size
+      max_column = column_definitions.size
 
       column_names.map do |column_name|
         # ensure column name escapes invisible characters
